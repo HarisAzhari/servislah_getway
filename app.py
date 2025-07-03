@@ -16,6 +16,8 @@ from blueprints.service_bay import service_bays_bp
 from blueprints.config import config_bp
 from utils.auth import auth_required
 
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -34,5 +36,12 @@ app.register_blueprint(specializations_bp, url_prefix="/specializations")
 app.register_blueprint(service_bays_bp, url_prefix="/service-bays")
 app.register_blueprint(config_bp, url_prefix="/config")
 
+
+@app.route("/")
+def health_check():
+    return {"status": "API is running!", "message": "Servislah Gateway API"}
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
