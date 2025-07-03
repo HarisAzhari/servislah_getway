@@ -13,9 +13,9 @@ from blueprints.review import reviews_bp
 from blueprints.mechanic import mechanics_bp
 from blueprints.specialization import specializations_bp
 from blueprints.service_bay import service_bays_bp
+from blueprints.config import config_bp
 from utils.auth import auth_required
 
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +32,7 @@ app.register_blueprint(reviews_bp, url_prefix="/reviews")
 app.register_blueprint(mechanics_bp, url_prefix="/mechanics")
 app.register_blueprint(specializations_bp, url_prefix="/specializations")
 app.register_blueprint(service_bays_bp, url_prefix="/service-bays")
+app.register_blueprint(config_bp, url_prefix="/config")
 
 if __name__ == "__main__":
     app.run(debug=True)

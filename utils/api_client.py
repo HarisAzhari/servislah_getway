@@ -2,7 +2,20 @@ import os
 import requests
 from flask import request, jsonify
 
-BASE_URL = os.getenv("BASE_URL")
+# Default base URL that can be overridden
+BASE_URL = "http://localhost:7878/api/v1"
+
+
+def set_base_url(new_url):
+    """Set a new base URL for API requests"""
+    global BASE_URL
+    BASE_URL = new_url
+    return BASE_URL
+
+
+def get_base_url():
+    """Get the current base URL"""
+    return BASE_URL
 
 
 def forward_request(endpoint, method="GET", json_data=None, params=None):
