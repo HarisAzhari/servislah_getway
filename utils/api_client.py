@@ -3,7 +3,7 @@ import requests
 from flask import request, jsonify
 
 # Default base URL that can be overridden
-BASE_URL = "http://localhost:7878/api/v1"
+BASE_URL = "https://servislahserver-production.up.railway.app/api/v1"
 
 
 def set_base_url(new_url):

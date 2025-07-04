@@ -54,7 +54,9 @@ def update_base_url():
 def reset_base_url():
     """Reset the base URL to default"""
     try:
-        default_url = "http://localhost:7878/api/v1"
+        default_url = (
+            "https://servislahgetway-production.up.railway.app/api/v1"
+        )
         updated_url = set_base_url(default_url)
 
         return (
