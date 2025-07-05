@@ -13,8 +13,10 @@ def get_companies():
     params = request.args.to_dict()
     return forward_request("/companies", params=params)
 
+
 # companies by id
 # will be double confirm with backend
+
 
 @companies_bp.route("", methods=["POST"])
 @auth_required
@@ -24,6 +26,7 @@ def create_company():
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request("/companies", method="POST", json_data=payload)
+
 
 @companies_bp.route("/<id>", methods=["PATCH"])
 @auth_required

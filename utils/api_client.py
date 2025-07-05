@@ -34,6 +34,7 @@ def forward_request(endpoint, method="GET", json_data=None, params=None):
             json=json_data,
             params=params,
         )
+        print("Response:", response.json())
         return jsonify(response.json()), response.status_code
     except requests.exceptions.RequestException as e:
         return jsonify({"error": f"Failed to {method.lower()} {endpoint}"}), 500

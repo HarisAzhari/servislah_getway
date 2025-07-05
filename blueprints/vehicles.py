@@ -27,6 +27,12 @@ def get_vehicle_appointments():
     return forward_request("/vehicles/appointments", params=request.args.to_dict())
 
 
+@vehicles_bp.route("/user/<user_id>", methods=["GET"])
+@auth_required
+def get_vehicles_by_user(user_id):
+    return forward_request(f"/vehicles/user/{user_id}")
+
+
 @vehicles_bp.route("/<id>", methods=["GET"])
 @auth_required
 def get_vehicle_by_id(id):
@@ -46,9 +52,3 @@ def update_vehicle(id):
 @auth_required
 def delete_vehicle(id):
     return forward_request(f"/vehicles/{id}", method="DELETE")
-
-
-@vehicles_bp.route("/user/<user_id>", methods=["GET"])
-@auth_required
-def get_vehicles_by_user(user_id):
-    return forward_request(f"/vehicles/user/{user_id}")

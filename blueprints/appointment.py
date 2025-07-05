@@ -12,6 +12,7 @@ def get_appointments():
     """Get appointments with optional query parameters - authentication required"""
     # Get all query parameters and forward them to the external API
     params = request.args.to_dict()
+    print("Params:", params)
     return forward_request("/appointments", params=params)
 
 
