@@ -14,6 +14,13 @@ def get_mechanics():
     return forward_request("/mechanics", params=params)
 
 
+@mechanics_bp.route("/<id>", methods=["GET"])
+@auth_required
+def get_mechanic_by_id(id):
+    """Get mechanic by ID - authentication required"""
+    return forward_request(f"/mechanics/{id}")
+
+
 @mechanics_bp.route("", methods=["POST"])
 @auth_required
 def create_mechanic():
@@ -22,13 +29,6 @@ def create_mechanic():
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request("/mechanics", method="POST", json_data=payload)
-
-
-@mechanics_bp.route("/<id>", methods=["GET"])
-@auth_required
-def get_mechanic_by_id(id):
-    """Get mechanic by ID - authentication required"""
-    return forward_request(f"/mechanics/{id}")
 
 
 @mechanics_bp.route("/<id>", methods=["PATCH"])
@@ -74,8 +74,8 @@ def delete_mechanic_specialization():
 
 @mechanics_bp.route("/assign", methods=["POST"])
 @auth_required
-def assign_mechanic():
-    """Assign mechanic - authentication required"""
+def assign_mechanic_to_appointment():
+    """Assign mechanic to appointment - authentication required"""
     payload = request.get_json()
     if not payload:
         return {"error": "JSON payload required"}, 400

@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
+from utils.limiter import limiter
 from blueprints.vehicles import vehicles_bp
 from blueprints.users import users_bp
 from blueprints.company import companies_bp
@@ -14,13 +15,16 @@ from blueprints.mechanic import mechanics_bp
 from blueprints.specialization import specializations_bp
 from blueprints.service_bay import service_bays_bp
 from blueprints.config import config_bp
-from utils.auth import auth_required
+from utils.auth import auth_required, get_user_or_ip
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+# Initialize the limiter with the Flask app
+limiter.init_app(app)
 
 # Register blueprints
 app.register_blueprint(vehicles_bp, url_prefix="/vehicles")

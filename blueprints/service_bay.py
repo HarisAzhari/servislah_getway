@@ -15,6 +15,13 @@ def get_service_bays():
     return forward_request("/service-bays", params=params)
 
 
+@service_bays_bp.route("/<id>", methods=["GET"])
+@auth_required
+def get_service_bay_by_id(id):
+    """Get service bay by ID - authentication required"""
+    return forward_request(f"/service-bays/{id}")
+
+
 @service_bays_bp.route("", methods=["POST"])
 @auth_required
 def create_service_bay():
@@ -23,14 +30,6 @@ def create_service_bay():
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request("/service-bays", method="POST", json_data=payload)
-
-
-@service_bays_bp.route("/<id>", methods=["GET"])
-@auth_required
-def get_service_bay_by_id(id):
-    """Get service bay by ID - authentication required"""
-    return forward_request(f"/service-bays/{id}")
-
 
 @service_bays_bp.route("/<id>", methods=["PATCH"])
 @auth_required
