@@ -9,8 +9,10 @@ service_centers_bp = Blueprint("service_centers", __name__)
 @service_centers_bp.route("", methods=["GET"])
 @auth_required
 def get_service_centers():
-    """Get all service centers - authentication required"""
-    return forward_request("/service-centers")
+    # Get all query parameters and forward them to the external API
+    params = request.args.to_dict()
+    return forward_request("/service-centers", params=params)
+
 
 
 @service_centers_bp.route("", methods=["POST"])
