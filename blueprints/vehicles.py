@@ -11,7 +11,30 @@ vehicles_bp = Blueprint("vehicles", __name__)
 @limiter.limit("22 per minute")
 @auth_required
 def get_vehicles():
-    return forward_request("/vehicles")
+    params = request.args.to_dict()
+    return forward_request("/vehicles", params=params)
+
+
+@vehicles_bp.route("/appointments", methods=["GET"])
+@limiter.limit("10 per minute")
+@auth_required
+def get_vehicle_appointments():
+    params = request.args.to_dict()
+    return forward_request("/vehicles/appointments", params=params)
+
+
+@vehicles_bp.route("/<id>", methods=["GET"])
+@limiter.limit("20 per minute")
+@auth_required
+def get_vehicle_by_id(id):
+    return forward_request(f"/vehicles/{id}")
+
+
+@vehicles_bp.route("/user/<user_id>", methods=["GET"])
+@limiter.limit("15 per minute")
+@auth_required
+def get_vehicles_by_user(user_id):
+    return forward_request(f"/vehicles/user/{user_id}")
 
 
 @vehicles_bp.route("", methods=["POST"])
@@ -22,28 +45,6 @@ def create_vehicle():
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request("/vehicles", method="POST", json_data=payload)
-
-
-@vehicles_bp.route("/appointments", methods=["GET"])
-@limiter.limit("10 per minute")
-@auth_required
-def get_vehicle_appointments():
-    return forward_request("/vehicles/appointments", params=request.args.to_dict())
-
-
-@vehicles_bp.route("/user/<user_id>", methods=["GET"])
-@limiter.limit("15 per minute")
-@auth_required
-def get_vehicles_by_user(user_id):
-    return forward_request(f"/vehicles/user/{user_id}")
-
-
-@vehicles_bp.route("/<id>", methods=["GET"])
-@limiter.limit("20 per minute")
-@auth_required
-def get_vehicle_by_id(id):
-    return forward_request(f"/vehicles/{id}")
-
 
 @vehicles_bp.route("/<id>", methods=["PATCH"])
 @limiter.limit("15 per minute")

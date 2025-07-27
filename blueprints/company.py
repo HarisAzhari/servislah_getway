@@ -14,8 +14,17 @@ def get_companies():
     return forward_request("/companies", params=params)
 
 
-# companies by id
-# will be double confirm with backend
+@companies_bp.route("/<id>", methods=["GET"])
+@auth_required
+def get_companies_by_id(id):
+    return forward_request(f"/companies/{id}")
+
+
+@companies_bp.route("/service-center/<id>", methods=["GET"])
+@auth_required
+def get_company_service_center(id):
+    """Get company service center by ID - authentication required"""
+    return forward_request(f"/companies/service-center/{id}")
 
 
 @companies_bp.route("", methods=["POST"])
@@ -28,6 +37,13 @@ def create_company():
     return forward_request("/companies", method="POST", json_data=payload)
 
 
+@companies_bp.route("/<id>", methods=["DELETE"])
+@auth_required
+def delete_company(id):
+    """Delete company by ID - authentication required"""
+    return forward_request(f"/companies/{id}", method="DELETE")
+
+
 @companies_bp.route("/<id>", methods=["PATCH"])
 @auth_required
 def update_company(id):
@@ -36,14 +52,3 @@ def update_company(id):
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request(f"/companies/{id}", method="PATCH", json_data=payload)
-
-
-@companies_bp.route("/<id>", methods=["DELETE"])
-@auth_required
-def delete_company(id):
-    """Delete company by ID - authentication required"""
-    return forward_request(f"/companies/{id}", method="DELETE")
-
-
-# companies by id
-# will be double confirm with backend

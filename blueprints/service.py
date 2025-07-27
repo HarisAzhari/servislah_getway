@@ -14,16 +14,6 @@ def get_services():
     return forward_request("/services", params=params)
 
 
-@services_bp.route("", methods=["POST"])
-@auth_required
-def create_service():
-    """Create a new service - authentication required"""
-    payload = request.get_json()
-    if not payload:
-        return {"error": "JSON payload required"}, 400
-    return forward_request("/services", method="POST", json_data=payload)
-
-
 @services_bp.route("/<id>", methods=["GET"])
 @auth_required
 def get_service_by_id(id):
@@ -37,6 +27,15 @@ def get_service_by_name(name):
     """Get service by name - authentication required"""
     return forward_request(f"/services/name/{name}")
 
+
+@services_bp.route("", methods=["POST"])
+@auth_required
+def create_service():
+    """Create a new service - authentication required"""
+    payload = request.get_json()
+    if not payload:
+        return {"error": "JSON payload required"}, 400
+    return forward_request("/services", method="POST", json_data=payload)
 
 @services_bp.route("/<id>", methods=["PATCH"])
 @auth_required

@@ -3,7 +3,7 @@ from utils.api_client import forward_request
 
 users_bp = Blueprint("users", __name__)
 
-
+#Get All Users
 @users_bp.route("", methods=["GET"])
 def get_users():
     """Get all users - no authentication required"""
