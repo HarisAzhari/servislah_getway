@@ -15,6 +15,9 @@ from blueprints.mechanic import mechanics_bp
 from blueprints.specialization import specializations_bp
 from blueprints.service_bay import service_bays_bp
 from blueprints.config import config_bp
+from blueprints.operation_hour import operation_hours_bp
+from blueprints.customers import customers_bp
+from blueprints.customer_groups import customer_groups_bp
 from utils.auth import auth_required, get_user_or_ip
 
 # Load environment variables
@@ -39,6 +42,9 @@ app.register_blueprint(mechanics_bp, url_prefix="/mechanics")
 app.register_blueprint(specializations_bp, url_prefix="/specializations")
 app.register_blueprint(service_bays_bp, url_prefix="/service-bays")
 app.register_blueprint(config_bp, url_prefix="/config")
+app.register_blueprint(operation_hours_bp, url_prefix="/operating-hours")
+app.register_blueprint(customers_bp, url_prefix="/customers")
+app.register_blueprint(customer_groups_bp, url_prefix="/customer-groups")
 
 
 @app.route("/")
