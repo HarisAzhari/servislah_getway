@@ -44,6 +44,7 @@ def get_appointment_by_name(name):
 def create_appointment():
     """Create a new appointment - authentication required"""
     payload = request.get_json()
+    print("Payload:", payload)
     if not payload:
         return {"error": "JSON payload required"}, 400
     return forward_request("/appointments", method="POST", json_data=payload)
