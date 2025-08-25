@@ -47,3 +47,12 @@ def update_review(id):
 def delete_review(id):
     """Delete review by ID - authentication required"""
     return forward_request(f"/reviews/{id}", method="DELETE")
+
+
+@reviews_bp.route("/mechanic/<mechanic_id>", methods=["GET"])
+@auth_required
+def get_reviews_by_mechanic(mechanic_id):
+    """Get reviews for a specific mechanic with pagination - authentication required"""
+    # Get all query parameters (page, limit, etc.) and forward them to the external API
+    params = request.args.to_dict()
+    return forward_request(f"/reviews/mechanic/{mechanic_id}", params=params)
